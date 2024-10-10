@@ -3,83 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floral Haven - Bringing Nature to You</title>
+    <title>Temperature Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
-    <nav class="header">
-        <a href="#" class="logo">Floral Haven</a>
-        <ul class="links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="intro">
-        <div class="intro-text">
-            <h1>Welcome to <span>Floral Haven</span></h1>
-            <p>"Bringing the beauty of nature into your home with stunning, handcrafted floral arrangements for every occasion."</p>
-            <p>For over a century, we’ve crafted unforgettable moments with our handpicked flowers. Whether it’s a celebration or a simple gesture, Floral Haven is your go-to destination.</p>
-        </div>
-        <img src="rose.avif" alt="Beautiful rose bouquet">
-    </div>
-
-    <div class="products">
-        <h2>Featured Products</h2>
-        <div class="gallery">
-            <img src="img2.png" alt="Rose Bouquet">
-            <img src="img6.png" alt="Tulip Arrangement">
-            <img src="img5.png" alt="Mixed Flowers">
-        </div>
-    </div>
-
-    <div class="action">
-        <h2>Make Your Special Moments Bloom!</h2>
-        <p>Get 15% off your first order when you sign up for our newsletter.</p>
-        <button>Join Now</button>
-    </div>
-
-    <div class="reviews">
-        <h2>Happy Customers</h2>
-        <div class="feedback">
-            <div class="review-box">
-                <img src="img3.png" alt="Customer 1">
-                <p>"Floral Haven created the most beautiful arrangements for my wedding day. Highly recommend!"</p>
-                <p>- Anna B.</p>
+    <center>
+        <div class="container">
+            <div class="title">
+                <h1><i>Temperature Converter</i></h1>
             </div>
-            <div class="review-box">
-                <img src="img4.png" alt="Customer 2">
-                <p>"The quality of the flowers was incredible, and the service was top-notch. I’ll be ordering again."</p>
-                <p>- John D.</p>
+            <div class="input">
+                <div id="celsius">
+                    <p>Celsius</p>
+                    <input type="number" placeholder="Enter Celsius">
+                </div>
+                <div id="fahrenheit">
+                    <p>Fahrenheit</p>
+                    <input type="number" placeholder="Enter Fahrenheit">
+                </div>
+                <div id="kelvin">
+                    <p>Kelvin</p>
+                    <input type="number" placeholder="Enter Kelvin">
+                </div>
+            </div>
+            <div class="output">
+                <button>Clear</button>
             </div>
         </div>
-    </div>
+    </center>
 
-    <div class="contact-us">
-        <h2>Contact Us</h2>
-        <p>We'd love to hear from you! Reach out for more information.</p>
-        <div class="details">
-            <div>
-                <h3>Email</h3>
-                <p>flower@123.com</p>
-            </div>
-            <div>
-                <h3>Phone</h3>
-                <p>+9123568976</p>
-            </div>
-            <div>
-                <h3>Location</h3>
-                <p>123 sri Street,chennai</p>
-            </div>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    <footer>
-        <p>&copy; 2024 Floral Haven | Designed with love</p>
-    </footer>
+            let celsiusInput = document.querySelector('#celsius > input');
+            let fahrenheitInput = document.querySelector('#fahrenheit > input');
+            let kelvinInput = document.querySelector('#kelvin > input');
+            let clearButton = document.querySelector('.output button');
 
+            function roundNumber(number) {
+                return Math.round(number * 100) / 100;
+            }
+
+            celsiusInput.addEventListener('input', function () {
+                let cTemp = parseFloat(celsiusInput.value);
+                if (!isNaN(cTemp)) {
+                    let fTemp = (cTemp * (9 / 5)) + 32;
+                    let kTemp = cTemp + 273.15;
+                    fahrenheitInput.value = roundNumber(fTemp);
+                    kelvinInput.value = roundNumber(kTemp);
+                } else {
+                    fahrenheitInput.value = "";
+                    kelvinInput.value = "";
+                }
+            });
+            fahrenheitInput.addEventListener('input', function () {
+                let fTemp = parseFloat(fahrenheitInput.value);
+                if (!isNaN(fTemp)) {
+                    let cTemp = (fTemp - 32) * (5 / 9);
+                    let kTemp = cTemp + 273.15;
+                    celsiusInput.value = roundNumber(cTemp);
+                    kelvinInput.value = roundNumber(kTemp);
+                } else {
+                    celsiusInput.value = "";
+                    kelvinInput.value = "";
+                }
+            });
+            kelvinInput.addEventListener('input', function () {
+                let kTemp = parseFloat(kelvinInput.value);
+                if (!isNaN(kTemp)) {
+                    let cTemp = kTemp - 273.15;
+                    let fTemp = (cTemp * (9 / 5)) + 32;
+                    celsiusInput.value = roundNumber(cTemp);
+                    fahrenheitInput.value = roundNumber(fTemp);
+                } else {
+                    celsiusInput.value = "";
+                    fahrenheitInput.value = "";
+                }
+            });
+            clearButton.addEventListener('click', function () {
+                celsiusInput.value = "";
+                fahrenheitInput.value = "";
+                kelvinInput.value = "";
+            });
+        });
+    </script>
 </body>
-</html>
+</html> 
